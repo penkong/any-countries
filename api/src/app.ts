@@ -3,6 +3,7 @@
  */
 
 import 'reflect-metadata'
+import 'express-async-errors'
 
 import cors from 'cors'
 import helmet from 'helmet'
@@ -15,7 +16,7 @@ import { json } from 'body-parser'
 
 import { config } from './config/'
 import { authRouter } from './routes/'
-// import { NotFoundError } from './error'
+import { NotFoundError } from './error'
 import { errorHandler } from './middleware'
 
 // ---
@@ -28,10 +29,8 @@ const app = express()
 
 app.set('trust proxy', true)
 
-// Set security HTTP headers
 app.use(helmet())
 
-// Limit requests
 const limiter = rateLimit({
   max: 30,
   windowMs: 60 * 1000,
@@ -43,7 +42,6 @@ app.use('/grqphql', limiter)
 
 // --------- Utility Middlewares -----------
 
-// draw out/set/save cookies on server/client
 app.use(
   cookieSession({
     signed: false,
@@ -51,11 +49,9 @@ app.use(
   })
 )
 
-// allow us to parse body of requests
 app.use(json({ limit: '5kb' }))
 app.use(express.urlencoded({ extended: true, limit: '10kb' }))
 
-// allow cors happen on specific domain
 app.use(
   cors({
     origin: CORS,
@@ -63,18 +59,15 @@ app.use(
   })
 )
 
-// use for compression
 app.use(compression())
 
-// auth router as middleware and with prefix
 app.use('/api/v1/auth', authRouter)
 
-// // catch all routes
-// app.all('*', async (_req, _res) => {
-//   throw new NotFoundError()
-// })
+// catch all routes
+app.all('*', async (_req, _res) => {
+  throw new NotFoundError()
+})
 
-// global error handler
 app.use(errorHandler)
 
 export { app }

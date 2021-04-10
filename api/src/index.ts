@@ -2,7 +2,7 @@
  ** Description :
  */
 
-import { ApolloServer, gql } from 'apollo-server-express'
+// import { ApolloServer, gql } from 'apollo-server-express'
 import path from 'path'
 import { createConnection } from 'typeorm'
 
@@ -32,23 +32,23 @@ const bootstrap = async () => {
 
     console.log('Connected to Postgresql!!!')
     // registration of graphql server
-    const typeDefs = gql`
-      type Destination {
-        destination_id: String!
-        destination_name: String!
-      }
-    `
-    const resolvers = {}
-    const apolloServer = new ApolloServer({
-      typeDefs,
-      resolvers,
-      context: {}
-    })
+    // const typeDefs = gql`
+    //   type Destination {
+    //     destination_id: String!
+    //     destination_name: String!
+    //   }
+    // `
+    // const resolvers = {}
+    // const apolloServer = new ApolloServer({
+    //   typeDefs,
+    //   resolvers,
+    //   context: {}
+    // })
 
-    apolloServer.applyMiddleware({
-      app,
-      cors: false
-    })
+    // apolloServer.applyMiddleware({
+    //   app,
+    //   cors: false
+    // })
 
     app.listen(PORT, () => {
       console.log(`Listening on ${PORT}!!!!!!!!`)
