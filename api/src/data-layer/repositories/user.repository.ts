@@ -9,14 +9,12 @@ import {
   getRepository
 } from 'typeorm'
 
-import { Logger, InternalServerErrorException } from '@nestjs/common'
-
 import { Moment } from 'moment'
 import moment from 'moment-timezone'
 
 // -------------------------- Local  ----------------------------
 
-import { CronJobs } from '../entities'
+import { User } from '../models'
 import { CronJobsRequestDto } from '../dto'
 import {
   IInfoForChildMicro,
