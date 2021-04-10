@@ -1,1 +1,1 @@
-console.log('graphql')
+export * from './resolvers'

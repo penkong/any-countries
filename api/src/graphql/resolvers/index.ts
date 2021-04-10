@@ -1,1 +1,1 @@
-console.log('resolvers')
+export * from './hello.resolver'

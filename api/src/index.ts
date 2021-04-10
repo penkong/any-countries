@@ -2,6 +2,7 @@
  ** Description :
  */
 
+import { ApolloServer, gql } from 'apollo-server-express'
 import path from 'path'
 import { createConnection } from 'typeorm'
 
@@ -15,9 +16,9 @@ const { PORT, DB_URL, JWT_KEY } = config
 // ---
 
 const bootstrap = async () => {
-  if (!JWT_KEY) throw new Error('JWT_KEY must be defined')
+  if (!JWT_KEY) throw new Error('jwt key must be defined!')
 
-  if (!DB_URL) throw new Error('MONGO_URI must be defined')
+  if (!DB_URL) throw new Error('database url must be defined!')
 
   try {
     await createConnection({
@@ -30,6 +31,24 @@ const bootstrap = async () => {
     })
 
     console.log('Connected to Postgresql!!!')
+    // registration of graphql server
+    const typeDefs = gql`
+      type Destination {
+        destination_id: String!
+        destination_name: String!
+      }
+    `
+    const resolvers = {}
+    const apolloServer = new ApolloServer({
+      typeDefs,
+      resolvers,
+      context: {}
+    })
+
+    apolloServer.applyMiddleware({
+      app,
+      cors: false
+    })
 
     app.listen(PORT, () => {
       console.log(`Listening on ${PORT}!!!!!!!!`)

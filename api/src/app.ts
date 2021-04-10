@@ -5,22 +5,45 @@
 import 'reflect-metadata'
 
 import cors from 'cors'
+import helmet from 'helmet'
 import express from 'express'
-import { json } from 'body-parser'
+import compression from 'compression'
+import rateLimit from 'express-rate-limit'
 import cookieSession from 'cookie-session'
-import { ApolloServer } from 'apollo-server-express'
 
-import { NotFoundError } from './error'
-import { errorHandler } from './middleware'
+import { json } from 'body-parser'
+
+import { config } from './config/'
 import { authRouter } from './routes/'
+// import { NotFoundError } from './error'
+import { errorHandler } from './middleware'
 
 // ---
 
+const { CORS } = config
+
 const app = express()
 
-app.set('trust proxy', true)
-app.use(json())
+// --------- Security Middlewares -----------
 
+app.set('trust proxy', true)
+
+// Set security HTTP headers
+app.use(helmet())
+
+// Limit requests
+const limiter = rateLimit({
+  max: 30,
+  windowMs: 60 * 1000,
+  message: 'Too many requests from this IP, please try again in an hour!'
+})
+
+app.use('/api/*', limiter)
+app.use('/grqphql', limiter)
+
+// --------- Utility Middlewares -----------
+
+// draw out/set/save cookies on server/client
 app.use(
   cookieSession({
     signed: false,
@@ -28,33 +51,30 @@ app.use(
   })
 )
 
+// allow us to parse body of requests
+app.use(json({ limit: '5kb' }))
+app.use(express.urlencoded({ extended: true, limit: '10kb' }))
+
+// allow cors happen on specific domain
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: CORS,
     credentials: true
   })
 )
 
-const apolloServer = new ApolloServer({
-  // schema: await buildSchema({
-  //   // resolvers: [],
-  //   validate: false
-  // }),
-  context: {}
-  // dataSources() {}
-})
+// use for compression
+app.use(compression())
 
-apolloServer.applyMiddleware({
-  app,
-  cors: false
-})
+// auth router as middleware and with prefix
+app.use('/api/v1/auth', authRouter)
 
-app.use('/api/v1', authRouter)
+// // catch all routes
+// app.all('*', async (_req, _res) => {
+//   throw new NotFoundError()
+// })
 
-app.all('*', async (_req, _res) => {
-  throw new NotFoundError()
-})
-
+// global error handler
 app.use(errorHandler)
 
 export { app }
