@@ -1,1 +1,1 @@
-console.log('utilities')
+export * from './catchAsync.util'

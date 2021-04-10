@@ -12,6 +12,7 @@ import { ApolloServer } from 'apollo-server-express'
 
 import { NotFoundError } from './error'
 import { errorHandler } from './middleware'
+import { authRouter } from './routes/'
 
 // ---
 
@@ -48,10 +49,7 @@ apolloServer.applyMiddleware({
   cors: false
 })
 
-app.use(currentUserRotuer)
-app.use(registerRouter)
-app.use(loginRouter)
-app.use(logoutRotuer)
+app.use('/api/v1', authRouter)
 
 app.all('*', async (_req, _res) => {
   throw new NotFoundError()
