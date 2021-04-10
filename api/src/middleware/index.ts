@@ -1,1 +1,1 @@
-console.log('middleware')
+export * from './errorHandler.middleware'

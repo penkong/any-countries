@@ -11,6 +11,7 @@ import cookieSession from 'cookie-session'
 import { ApolloServer } from 'apollo-server-express'
 
 import { NotFoundError } from './error'
+import { errorHandler } from './middleware'
 
 // ---
 
@@ -33,11 +34,6 @@ app.use(
   })
 )
 
-app.use(currentUserRotuer)
-app.use(registerRouter)
-app.use(loginRouter)
-app.use(logoutRotuer)
-
 const apolloServer = new ApolloServer({
   // schema: await buildSchema({
   //   // resolvers: [],
@@ -51,6 +47,11 @@ apolloServer.applyMiddleware({
   app,
   cors: false
 })
+
+app.use(currentUserRotuer)
+app.use(registerRouter)
+app.use(loginRouter)
+app.use(logoutRotuer)
 
 app.all('*', async (_req, _res) => {
   throw new NotFoundError()
