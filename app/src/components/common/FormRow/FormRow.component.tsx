@@ -11,9 +11,7 @@ interface IPassingProps {
   name: string
   value?: string
   placeHolder?: string
-  onChange: (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
-  ) => void
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 // ---

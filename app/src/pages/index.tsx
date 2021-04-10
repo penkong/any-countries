@@ -1,24 +1,14 @@
 /*
  ** Description :
  */
-import styles from '../styles/Home.module.css'
+import '../styles/Home.module.css'
 
-import { useEffect, FormEvent, useState } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 
-import {
-  FormRow,
-  FormButton,
-  RedirectButton,
-  AuthenticationView
-} from '../components/'
+import { AuthHoc, AuthPage, IChildrenAuthProps } from '../components/'
+import {} from '../components/hoc/AuthHoc/AuthHoc.component'
 
 // ---
-
-interface IFormState {
-  email: string
-  password: string
-}
 
 interface IPassingProps {}
 
@@ -30,41 +20,9 @@ interface AppProps extends IPassingProps, GetServerSideProps {}
 const Landing: NextPage<AppProps, IPassingProps> = props => {
   //
 
-  const [state, setState] = useState<IFormState | null>(null)
+  const renderLogin = (props: IChildrenAuthProps) => <AuthPage {...props} />
 
-  useEffect(() => {}, [])
-
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log(e.target)
-  }
-
-  return (
-    <AuthenticationView>
-      <form onSubmit={onSubmit} className="px-5 py-7">
-        <FormRow label="E-mail" name="email" />
-        <FormRow label="Password" name="password" />
-        <FormButton text="Login" />
-      </form>
-      <RedirectButton />
-    </AuthenticationView>
-  )
-}
-
-// <div className={styles.container}>
-//   <Head>
-//     <title>Create Next App</title>
-//     <link rel="icon" href="/favicon.ico" />
-//   </Head>
-
-//   <div>index page</div>
-// </div>
-// ---
-
-export const getServerSideProps: GetServerSideProps = async context => {
-  return {
-    props: {} // will be passed to the page component as props
-  }
+  return <AuthHoc route="login">{renderLogin}</AuthHoc>
 }
 
 // ---

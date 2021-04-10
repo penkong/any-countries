@@ -1,1 +1,1 @@
-console.log('icons comps')
+export * from './LockIcon/LockIcon.component'

@@ -14,5 +14,6 @@ export interface IChildrenAuthProps {
 }
 
 export interface IAuthHOCProps {
+  route: string
   children: (props: IChildrenAuthProps) => JSX.Element
 }
