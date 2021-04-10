@@ -1,1 +1,1 @@
-console.log('layout comps')
+export * from './AuthenticationView/AuthenticationView.component'

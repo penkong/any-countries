@@ -1,1 +1,2 @@
-console.log('components root')
+export * from './common'
+export * from './layout'
