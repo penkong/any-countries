@@ -8,6 +8,7 @@ import { BaseError } from '../error'
 
 // ---
 
+// @ts-ignore
 export const errorHandler = (
   err: Error,
   _req: Request,
@@ -20,7 +21,7 @@ export const errorHandler = (
     return res.status(err.statusCode).send({ errors: err.serializeErrors() })
 
   console.error(err)
-  return res.status(400).send({
+  res.status(400).send({
     errors: [{ message: 'Something went wrong' }]
   })
 }

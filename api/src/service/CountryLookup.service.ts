@@ -12,4 +12,8 @@ export class CountryLookup extends RESTDataSource {
     // the Catstronauts catalog is hosted on this server
     this.baseURL = 'https://restcountries.eu/rest/v2/'
   }
+
+  getAll() {
+    return this.get('all')
+  }
 }

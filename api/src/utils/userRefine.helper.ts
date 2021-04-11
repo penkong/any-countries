@@ -11,11 +11,11 @@ export const userRefine = ({
   email,
   confirmed,
   type,
-  createdAt
+  updatedAt
 }: User) => ({
   id,
   email,
   confirmed,
   type,
-  createdAt
+  updatedAt
 })
