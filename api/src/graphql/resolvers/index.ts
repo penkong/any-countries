@@ -1,1 +1,3 @@
-export * from './hello.resolver'
+import { IResolvers } from 'graphql-tools'
+
+export const resolvers: IResolvers = {}

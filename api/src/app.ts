@@ -63,6 +63,25 @@ app.use(compression())
 
 app.use('/api/v1/auth', authRouter)
 
+// registration of graphql server
+// const typeDefs = gql`
+//   type Destination {
+//     destination_id: String!
+//     destination_name: String!
+//   }
+// `
+// const resolvers = {}
+// const apolloServer = new ApolloServer({
+//   typeDefs,
+//   resolvers,
+//   context: {}
+// })
+
+// apolloServer.applyMiddleware({
+//   app,
+//   cors: false
+// })
+
 // catch all routes
 app.all('*', async (_req, _res) => {
   throw new NotFoundError()
