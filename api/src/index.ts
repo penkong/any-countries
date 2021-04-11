@@ -9,31 +9,29 @@ import 'express-async-errors'
 const express = require('express')
 
 import cors from 'cors'
+import helmet from 'helmet'
 import compression from 'compression'
 import rateLimit from 'express-rate-limit'
 import cookieSession from 'cookie-session'
 
 import { json } from 'body-parser'
+import { Request, Response } from 'express'
 import { ApolloServer } from 'apollo-server-express'
 
 import { config } from './config'
 import { authRouter } from './routes/'
 import { NotFoundError } from './error'
-import { CountryLookup } from './service/'
 import { createConnection } from 'typeorm'
-import { errorHandler } from './middleware'
 import { UserRepository } from './data-layer/'
 import { typeDefs, resolvers } from './graphql'
+import { errorHandler, currentUser } from './middleware'
+import { CountryLookup, ExchangeRate } from './service/'
 
 // ---
 
 const { DB_URL, JWT_KEY, CORS, PORT } = config
 
 // ---
-
-import { Request, Response } from 'express'
-import helmet from 'helmet'
-import { currentUser } from './middleware/currentUser.middleware'
 
 async function startApolloServer() {
   //
@@ -66,7 +64,8 @@ async function startApolloServer() {
     context: ({ req, res }) => ({ req, res, UserRepository }),
     dataSources: () => {
       return {
-        countryAPI: new CountryLookup()
+        countryAPI: new CountryLookup(),
+        changeRateAPI: new ExchangeRate()
       }
     }
   })

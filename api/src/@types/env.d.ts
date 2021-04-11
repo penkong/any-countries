@@ -13,5 +13,6 @@ declare namespace NodeJS {
     CORS: string
     JWT_KEY: string
     JWT_TTL: string
+    FIXER_API_KEY: string
   }
 }

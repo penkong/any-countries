@@ -10,6 +10,7 @@ export const typeDefs = gql`
   type Query {
     "a Query to get name of all countries "
     getAllCountries: [Country!]!
+    getCountry(term: String!): [Country!]!
   }
 
   type Currency {
@@ -46,7 +47,7 @@ export const typeDefs = gql`
   }
 
   type Country {
-    name: String!
+    name: String
     topLevelDomain: [String]!
     alpha2Code: String!
     alpha3Code: String!
@@ -55,7 +56,7 @@ export const typeDefs = gql`
     altSpellings: [String!]!
     region: String!
     subregion: String!
-    population: Int!
+    population: Int
     latlng: [Int!]!
     demonym: String!
     area: Int!
@@ -72,3 +73,16 @@ export const typeDefs = gql`
     cioc: String!
   }
 `
+
+// query GetCountry($term: String!) {
+//   getCountry(term: $term) {
+//     name,
+//     population,
+//     currencies {
+//       code,
+//       name,
+//       symbol,
+//       changeRateToSEK
+//     }
+//   }
+// }

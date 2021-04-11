@@ -11,12 +11,16 @@ export const resolvers: IResolvers = {
     getAllCountries: (_, __, { dataSources }) => {
       // console.log(req.session)
       return dataSources.countryAPI.getAll()
+    },
+
+    getCountry: (_, { term }, { dataSources }) => {
+      return dataSources.countryAPI.getOne(term)
     }
   },
   Currency: {
-    changeRateToSEK: ({ code }, __) => {
+    changeRateToSEK: ({ code }, _, { dataSources }) => {
       console.log(code)
-      return 3
+      return dataSources.changeRateAPI.getChangeRate(code)
     }
   }
 }

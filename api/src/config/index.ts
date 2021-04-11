@@ -13,5 +13,6 @@ export const config = {
   JWT_KEY: process.env.JWT_KEY,
   CORS: process.env.CORS,
   JWT_TTL: process.env.JWT_TTL,
-  __prod__: process.env.NODE_ENV === 'production'
+  __prod__: process.env.NODE_ENV === 'production',
+  FIXER_API_KEY: process.env.FIXER_API_KEY
 }

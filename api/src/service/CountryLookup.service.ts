@@ -16,4 +16,8 @@ export class CountryLookup extends RESTDataSource {
   getAll() {
     return this.get('all')
   }
+
+  getOne(term: string) {
+    return this.get(`name/${term}`)
+  }
 }
