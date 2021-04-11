@@ -8,6 +8,7 @@ import { createConnection } from 'typeorm'
 
 import { app } from './app'
 import { config } from './config'
+import { User } from './data-layer/models/User.entity'
 
 // ---
 
@@ -27,7 +28,7 @@ const bootstrap = async () => {
       logging: true,
       synchronize: true,
       migrations: [path.join(__dirname, './data/migrations/*')],
-      entities: []
+      entities: [User]
     })
 
     console.log('Connected to Postgresql!!!')

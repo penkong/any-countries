@@ -1,1 +1,1 @@
-console.log('entity')
+export * from './User.entity'

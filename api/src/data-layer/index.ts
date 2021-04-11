@@ -1,1 +1,2 @@
-console.log('data')
+export * from './models'
+export * from './repositories'
