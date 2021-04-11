@@ -1,5 +1,12 @@
+/*
+ ** Description :
+ */
+
 import { ValidationError } from 'express-validator'
+
 import { BaseError } from './'
+
+// ---
 
 export class ValidationRequestErr extends BaseError {
   statusCode = 400
@@ -12,8 +19,6 @@ export class ValidationRequestErr extends BaseError {
   }
 
   serializeErrors() {
-    return this.errors.map(err => {
-      return { message: err.msg, field: err.param }
-    })
+    return this.errors.map(err => ({ message: err.msg, field: err.param }))
   }
 }

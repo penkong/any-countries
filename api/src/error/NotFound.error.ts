@@ -1,4 +1,10 @@
-import { BaseError } from './Base.error'
+/*
+ ** Description :
+ */
+
+import { BaseError } from './'
+
+// ---
 
 export class NotFoundError extends BaseError {
   statusCode = 404

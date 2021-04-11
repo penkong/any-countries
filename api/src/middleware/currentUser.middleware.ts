@@ -8,6 +8,14 @@ import { IUserPayload } from '../@types'
 
 const { JWT_KEY } = config
 
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser?: IUserPayload
+    }
+  }
+}
+
 // ---
 
 export const currentUser = (
@@ -16,7 +24,6 @@ export const currentUser = (
   next: NextFunction
 ) => {
   //
-
   if (!req.session?.jwt) return next()
 
   try {

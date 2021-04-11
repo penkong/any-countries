@@ -7,6 +7,6 @@
   "logging": true,
   "synchronize": true,
   "database": "anycountries",
-  "entities": ["dist/data-layer/models/*.js"],
-  "migrations": ["dist/data-layer/migrations/*.js"]
+  "entities": ["./src/data-layer/models/*.ts"],
+  "migrations": ["./src/data-layer/migrations/*.ts"]
 }

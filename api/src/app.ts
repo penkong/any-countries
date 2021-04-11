@@ -29,6 +29,15 @@ const app = express()
 
 app.set('trust proxy', true)
 
+app.use(json({ limit: '5kb' }))
+app.use(express.urlencoded({ extended: true, limit: '10kb' }))
+app.use(
+  cookieSession({
+    signed: false
+    // secure: process.env.NODE_ENV !== 'test'
+  })
+)
+
 app.use(helmet())
 
 const limiter = rateLimit({
@@ -41,16 +50,6 @@ app.use('/api/*', limiter)
 app.use('/grqphql', limiter)
 
 // --------- Utility Middlewares -----------
-
-app.use(
-  cookieSession({
-    signed: false,
-    secure: process.env.NODE_ENV !== 'test'
-  })
-)
-
-app.use(json({ limit: '5kb' }))
-app.use(express.urlencoded({ extended: true, limit: '10kb' }))
 
 app.use(
   cors({

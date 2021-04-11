@@ -1,11 +1,15 @@
+/*
+ ** Description :
+ */
+
 import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 
-import { catchAsync } from '../../utils'
+import { config } from '../../config/'
+import { HashPassword } from '../../service/'
 import { BadRequestError } from '../../error'
 import { UserRepository } from '../../data-layer/'
-import { HashPassword } from '../../service/'
-import { config } from '../../config/'
+import { catchAsync, userRefine } from '../../utils'
 
 // ---
 
@@ -15,6 +19,8 @@ const { JWT_KEY } = config
 
 export const register = catchAsync(
   async (req: Request, res: Response, _next: NextFunction) => {
+    //
+
     const { email, password } = req.body
 
     const existingUser = await UserRepository.getByEmail(email)
@@ -33,7 +39,7 @@ export const register = catchAsync(
         id: user.id,
         email: user.email
       },
-      JWT_KEY
+      JWT_KEY!
     )
 
     // Store it on session object
@@ -41,6 +47,8 @@ export const register = catchAsync(
       jwt: userJwt
     }
 
-    res.status(201).send(user)
+    console.log(req.session.jwt)
+
+    res.status(201).send(userRefine(user))
   }
 )
