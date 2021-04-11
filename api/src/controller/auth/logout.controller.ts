@@ -5,5 +5,8 @@ import { catchAsync } from '../../utils'
 // ---
 
 export const logout = catchAsync(
-  async (_req: Request, _res: Response, _next: NextFunction) => {}
+  async (req: Request, res: Response, _next: NextFunction) => {
+    req.session = null
+    res.send({})
+  }
 )

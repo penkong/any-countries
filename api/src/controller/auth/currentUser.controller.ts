@@ -4,6 +4,8 @@ import { catchAsync } from '../../utils'
 
 // ---
 
-export const currentUser = catchAsync(
-  async (_req: Request, _res: Response, _next: NextFunction) => {}
+export const getUser = catchAsync(
+  async (req: Request, res: Response, _next: NextFunction) => {
+    res.send({ currentUser: req.currentUser || null })
+  }
 )

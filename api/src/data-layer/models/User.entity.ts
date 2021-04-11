@@ -18,14 +18,14 @@ export class User extends BaseEntity {
   @Column({ nullable: false, length: 50, unique: true })
   email: string
 
+  @Column({ type: 'text', nullable: false })
+  password: string
+
   @Column({ nullable: false, default: false })
   confirmed: boolean
 
   @Column('text', { default: 'free-trial' })
   type: string
-
-  @Column({ type: 'text', nullable: false })
-  password: string
 
   @Column({ type: 'bool', default: false })
   deleted: boolean
