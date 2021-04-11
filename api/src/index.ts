@@ -33,6 +33,7 @@ const { DB_URL, JWT_KEY, CORS, PORT } = config
 
 import { Request, Response } from 'express'
 import helmet from 'helmet'
+import { currentUser } from './middleware/currentUser.middleware'
 
 async function startApolloServer() {
   //
@@ -43,19 +44,6 @@ async function startApolloServer() {
 
   // DB connection
   await createConnection()
-
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: ({ req, res }) => ({ req, res, UserRepository }),
-    dataSources: () => {
-      return {
-        countryAPI: new CountryLookup()
-      }
-    }
-  })
-
-  await server.start()
 
   const app = express()
 
@@ -70,6 +58,23 @@ async function startApolloServer() {
     })
   )
 
+  app.all('*', currentUser)
+
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req, res }) => ({ req, res, UserRepository }),
+    dataSources: () => {
+      return {
+        countryAPI: new CountryLookup()
+      }
+    }
+  })
+
+  await server.start()
+
+  // --------- Utility and Security Middlewares -----------
+
   const limiter = rateLimit({
     max: 30,
     windowMs: 60 * 1000,
@@ -78,8 +83,6 @@ async function startApolloServer() {
 
   app.use('/api/*', limiter)
   app.use('/grqphql', limiter)
-
-  // --------- Utility Middlewares -----------
 
   app.use(
     cors({
@@ -100,6 +103,8 @@ async function startApolloServer() {
   console.log(
     `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
   )
+
+  // -------- More Middlewares ---------------
 
   app.use(helmet())
 

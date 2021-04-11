@@ -5,7 +5,7 @@
 import express from 'express'
 import { body } from 'express-validator'
 
-import { currentUser, validateReq } from '../middleware'
+import { validateReq } from '../middleware'
 import { register, login, logout, getUser } from '../controller/'
 
 // ---
@@ -40,7 +40,7 @@ router.post(
 
 router.get('/logout', logout)
 
-router.get('/current-user', currentUser, getUser)
+router.get('/current-user', getUser)
 
 // ---
 
