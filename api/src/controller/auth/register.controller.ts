@@ -49,6 +49,6 @@ export const register = catchAsync(
 
     console.log(req.session.jwt)
 
-    res.status(201).send(userRefine(user))
+    res.status(201).send([{ token: userJwt, ...userRefine(user) }])
   }
 )

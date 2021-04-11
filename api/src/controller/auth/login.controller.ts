@@ -40,6 +40,6 @@ export const login = catchAsync(
       jwt: userJwt
     }
 
-    res.status(200).send(userRefine(existUser))
+    res.status(200).send([{ token: userJwt, ...userRefine(existUser) }])
   }
 )

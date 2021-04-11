@@ -13,9 +13,10 @@ export const typeDefs = gql`
   }
 
   type Currency {
-    code: String!
-    name: String!
-    symbol: String!
+    code: String
+    name: String
+    symbol: String
+    changeRateToSEK: String!
   }
 
   type Language {
@@ -63,7 +64,7 @@ export const typeDefs = gql`
     borders: [String!]!
     nativeName: String!
     numericCode: String!
-    currencies: [Currency!]!
+    currencies: [Currency]
     languages: [Language!]!
     translations: Translations!
     flag: String!
