@@ -45,16 +45,17 @@ async function startApolloServer() {
 
   const app = express()
 
-  app.set('trust proxy', true)
+  app.set('trust proxy', 1)
+  app.use(
+    cookieSession({
+      name: 'session',
+      signed: false,
+      secure: process.env.NODE_ENV !== 'test'
+    })
+  )
 
   app.use(json({ limit: '2kb' }))
   app.use(express.urlencoded({ extended: true, limit: '2kb' }))
-  app.use(
-    cookieSession({
-      signed: false
-      // secure: process.env.NODE_ENV !== 'test'
-    })
-  )
 
   app.all('*', currentUser)
 
