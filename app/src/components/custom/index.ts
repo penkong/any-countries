@@ -1,2 +1,2 @@
-export * from './SearchDropDown/SearchDropDown'
-export * from './SearchComp/SearchComp'
+export * from './SearchDropDown/SearchDropDown.component'
+export * from './SearchComp/SearchComp.component'

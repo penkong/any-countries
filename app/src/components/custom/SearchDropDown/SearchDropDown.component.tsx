@@ -1,14 +1,23 @@
+import { useDispatch } from 'react-redux'
 import { FC, useEffect, useRef, ChangeEvent } from 'react'
+
+import { AddCountryCardStartAction } from '@redux/action-creators'
+
+// ---
 
 interface IPasssingProps {
   onInputChange: (e: ChangeEvent<HTMLInputElement>) => void
   options: string[]
 }
 
+// ---
+
 export const SearchDropDown: FC<IPasssingProps> = ({
   options,
   onInputChange
 }) => {
+  const dispatch = useDispatch()
+
   const ulRef = useRef(null)
   const inputRef = useRef(null)
 
@@ -56,6 +65,7 @@ export const SearchDropDown: FC<IPasssingProps> = ({
               key={index}
               onClick={() => {
                 inputRef.current.value = option
+                dispatch(AddCountryCardStartAction(option))
               }}
             >
               <p className="p-2 pl-4 pt-3 block text-black hover:bg-grey-light cursor-pointer">

@@ -3,7 +3,9 @@
  */
 
 import thunk from 'redux-thunk'
+import Router from 'next/router'
 import { createLogger } from 'redux-logger'
+// import { persistStore } from 'redux-persist'
 import { createStore, applyMiddleware } from 'redux'
 import { HYDRATE, createWrapper } from 'next-redux-wrapper'
 import {
@@ -11,11 +13,9 @@ import {
   initialRouterState
 } from 'connected-next-router'
 
-// ---
 
 import { rootReducer } from './reducer'
 import { someMiddleware } from './middleware'
-import Router from 'next/router'
 
 // ---
 
