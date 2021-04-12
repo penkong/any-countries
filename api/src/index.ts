@@ -49,6 +49,7 @@ async function startApolloServer() {
   app.use(
     cookieSession({
       name: 'session',
+      sameSite: 'none',
       signed: false,
       secure: process.env.NODE_ENV !== 'test'
     })
