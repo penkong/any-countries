@@ -9,8 +9,8 @@ import { createRouterMiddleware } from 'connected-next-router'
 
 // ---
 
-import { rootReducer } from './reducers'
-import { someMiddleware } from './middlewares'
+import { rootReducer } from './reducer'
+import { someMiddleware } from './middleware'
 
 // ---
 

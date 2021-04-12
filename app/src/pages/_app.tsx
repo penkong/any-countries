@@ -39,6 +39,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
+// ---
+
 function MyApp({ Component, pageProps, currentUser }: IProps) {
   console.log(currentUser)
   return (

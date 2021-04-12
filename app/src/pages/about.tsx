@@ -2,8 +2,8 @@
  ** Description :
  */
 
-import { GetServerSideProps, NextPage } from 'next'
 import { useEffect } from 'react'
+import { GetServerSideProps, NextPage } from 'next'
 
 // ---
 
@@ -17,14 +17,6 @@ interface IAppProps extends IPassingProps, GetServerSideProps {}
 const About: NextPage<IAppProps, IPassingProps> = props => {
   useEffect(() => {}, [])
   return <div>About</div>
-}
-
-// ---
-
-export const getServerSideProps: GetServerSideProps = async context => {
-  return {
-    props: {}
-  }
 }
 
 // ---

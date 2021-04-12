@@ -2,8 +2,8 @@
  ** Description :
  */
 
-import { GetServerSideProps, NextPage } from 'next'
 import { useQuery, gql } from '@apollo/client'
+import { GetServerSideProps, NextPage } from 'next'
 
 // ---
 
@@ -14,7 +14,7 @@ interface IAppProps extends IPassingProps, GetServerSideProps {}
 
 // ---
 
-const Search: NextPage<IAppProps, IPassingProps> = props => {
+const Search: NextPage<IAppProps, IPassingProps> = () => {
   return <div>hellow</div>
 }
 

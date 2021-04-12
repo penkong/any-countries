@@ -1,12 +1,12 @@
 /*
  ** Description :
  */
+
 import '../styles/Home.module.css'
 
 import { GetServerSideProps, NextPage } from 'next'
 
 import { AuthHoc, AuthPage, IChildrenAuthProps } from '../components/'
-import {} from '../components/hoc/AuthHoc/AuthHoc.component'
 
 // ---
 
@@ -17,7 +17,7 @@ interface AppProps extends IPassingProps, GetServerSideProps {}
 
 // ---
 
-const Landing: NextPage<AppProps, IPassingProps> = props => {
+const Landing: NextPage<AppProps, IPassingProps> = () => {
   //
 
   const renderLogin = (props: IChildrenAuthProps) => <AuthPage {...props} />

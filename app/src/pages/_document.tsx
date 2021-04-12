@@ -49,8 +49,6 @@ export default class MyDocument extends Document<DocumentProps> {
               sizes="114x114"
               href="images/apple-touch-icon-114x114.html"
             />
-            {/* <link rel="stylesheet" href="/css/uikit.min.css" /> */}
-            {/* <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script> */}
           </head>
         </Head>
         <body>

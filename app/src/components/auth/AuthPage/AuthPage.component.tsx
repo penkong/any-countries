@@ -1,4 +1,9 @@
+/*
+ ** Description :
+ */
+
 import React, { ChangeEvent, FC, FormEvent } from 'react'
+
 import { AuthenticationView, FormButton, FormRow, RedirectButton } from '../..'
 
 // ---
@@ -7,6 +12,14 @@ interface IPassingProps {
   register?: boolean
   onChangeInput: (e: ChangeEvent<HTMLInputElement>) => void
   onAuthSubmit: (e: FormEvent<HTMLFormElement>) => void
+}
+
+// ---
+
+const s = {
+  register: 'register',
+  back: 'Go Back Login Page',
+  goRegister: "Haven't Account ? Register"
 }
 
 export const AuthPage: FC<IPassingProps> = ({
@@ -29,8 +42,8 @@ export const AuthPage: FC<IPassingProps> = ({
         <FormButton text="Login" />
       </form>
       <RedirectButton
-        href={register ? '' : 'register'}
-        text={register ? 'Go Back Login Page' : "Haven't Account ? Register"}
+        href={register ? '' : s.register}
+        text={register ? s.back : s.goRegister}
       />
     </AuthenticationView>
   )

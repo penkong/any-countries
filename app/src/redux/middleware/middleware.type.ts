@@ -1,5 +1,5 @@
-import { RootState } from '../reducers'
-import { SthAction } from '../actions-interface'
+import { RootState } from '../reducer'
+import { SthAction } from '../action-interfaces'
 import { LocationChangeAction } from 'connected-next-router/actions'
 
 // ---

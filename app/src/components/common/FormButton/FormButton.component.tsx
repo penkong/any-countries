@@ -1,8 +1,16 @@
+/*
+ ** Description :
+ */
+
 import { FC } from 'react'
+
+// ---
 
 interface IPassingProps {
   text: string
 }
+
+// ---
 
 export const FormButton: FC<IPassingProps> = ({ text }) => {
   return (
