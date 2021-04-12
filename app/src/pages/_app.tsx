@@ -9,13 +9,12 @@ import '../styles/globals.css'
 import Router from 'next/router'
 import NProgress from 'nprogress'
 
-import { useEffect } from 'react'
 import { AppContext, AppProps } from 'next/app'
 import { ConnectedRouter } from 'connected-next-router'
 import { AppInitialProps } from 'next/dist/next-server/lib/utils'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 
-import { builder } from '../services/'
+// import { builder } from '../services/'
 import { wrapper } from '../redux/store'
 // ---
 
@@ -36,7 +35,7 @@ interface IProps extends IPassingProps, AppProps {}
 // ------------------------------------------------------
 
 const client = new ApolloClient({
-  uri: 'http://localhost:50001',
+  uri: 'http://localhost:5001',
   cache: new InMemoryCache()
 })
 
@@ -60,9 +59,9 @@ MyApp.getInitialProps = async ({
   Component,
   ctx
 }: AppContext): Promise<(AppInitialProps & IPassingProps) | {}> => {
-  const { req } = ctx
-  const client = builder({ req })
-  const { data } = await client.get('/current-user')
+  // const { req } = ctx
+  // const client = builder({ req })
+  // const { data } = await client.get('/current-user')
 
   let pageProps = {}
   if (Component.getInitialProps) {
@@ -72,7 +71,7 @@ MyApp.getInitialProps = async ({
   // @ts-ignore
   pageProps.query = ctx.query
 
-  return { pageProps, ...data }
+  return { pageProps }
 }
 
 export default wrapper.withRedux(MyApp)

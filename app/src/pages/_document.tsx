@@ -49,6 +49,10 @@ export default class MyDocument extends Document<DocumentProps> {
               sizes="114x114"
               href="images/apple-touch-icon-114x114.html"
             />
+            <link
+              rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+            />
           </head>
         </Head>
         <body>
