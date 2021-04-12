@@ -8,7 +8,7 @@ import { RootState } from '..'
 
 const domainSelector = (state: RootState) => state.auth
 
-export const isAuthenticatedSelector = createSelector(
+export const isThisLizzOrSomthingLikeThis = createSelector(
   domainSelector,
   e => e.isAuthenticated
 )
