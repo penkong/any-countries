@@ -35,7 +35,7 @@ interface IProps extends IPassingProps, AppProps {}
 // ------------------------------------------------------
 
 const client = new ApolloClient({
-  uri: 'http://localhost:5001',
+  uri: 'http://localhost:5001/graphql',
   cache: new InMemoryCache()
 })
 
