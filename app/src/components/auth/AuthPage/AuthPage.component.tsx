@@ -30,10 +30,21 @@ export const AuthPage: FC<IPassingProps> = ({
   return (
     <AuthenticationView>
       <form onSubmit={onAuthSubmit} className="px-5 py-7">
-        <FormRow label="E-mail" name="email" onChange={onChangeInput} />
-        <FormRow label="Password" name="password" onChange={onChangeInput} />
+        <FormRow
+          type="email"
+          label="E-mail"
+          name="email"
+          onChange={onChangeInput}
+        />
+        <FormRow
+          type="password"
+          label="Password"
+          name="password"
+          onChange={onChangeInput}
+        />
         {register && (
           <FormRow
+            type="password"
             label="Confirim Password"
             name="confirmPassword"
             onChange={onChangeInput}

@@ -5,30 +5,58 @@
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
-import { createRouterMiddleware } from 'connected-next-router'
+import { HYDRATE, createWrapper } from 'next-redux-wrapper'
+import {
+  createRouterMiddleware,
+  initialRouterState
+} from 'connected-next-router'
 
 // ---
 
 import { rootReducer } from './reducer'
 import { someMiddleware } from './middleware'
+import Router from 'next/router'
 
 // ---
 
-const middlewares = [createRouterMiddleware(), someMiddleware(), thunk]
+const routerMiddlware = createRouterMiddleware()
+
+const middlewares = [routerMiddlware, someMiddleware(), thunk]
 
 if (process.env.NODE_ENV === 'development') {
   let logger = createLogger()
   middlewares.push(logger as any)
 }
 
-const initStates = {}
-
 // ---
 
-export const store = createStore(
-  rootReducer,
-  initStates,
-  applyMiddleware(...middlewares)
-)
+const reducer = (state, action) => {
+  if (action.type === HYDRATE) {
+    const nextState = {
+      ...state,
+      ...action.payload
+    }
 
-export type RootStoreType = typeof store
+    if (typeof window !== 'undefined' && state?.router)
+      nextState.router = state.router
+
+    return nextState
+  } else {
+    return rootReducer(state, action)
+  }
+}
+
+export const initStore = context => {
+  let initialState
+  const { asPath } = context.ctx || Router.router || {}
+  if (asPath) {
+    initialState = {
+      router: initialRouterState(asPath)
+    }
+  }
+  return createStore(reducer, initialState, applyMiddleware(...middlewares))
+}
+
+export const wrapper = createWrapper(initStore)
+
+export type RootStoreType = typeof initStore

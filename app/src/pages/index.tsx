@@ -6,7 +6,8 @@ import '../styles/Home.module.css'
 
 import { GetServerSideProps, NextPage } from 'next'
 
-import { AuthHoc, AuthPage, IChildrenAuthProps } from '../components/'
+import { useCheckTokenExist } from '@hooks'
+import { AuthHoc, AuthPage, IChildrenAuthProps } from '@components'
 
 // ---
 
@@ -19,6 +20,8 @@ interface AppProps extends IPassingProps, GetServerSideProps {}
 
 const Landing: NextPage<AppProps, IPassingProps> = () => {
   //
+
+  useCheckTokenExist()
 
   const renderLogin = (props: IChildrenAuthProps) => <AuthPage {...props} />
 

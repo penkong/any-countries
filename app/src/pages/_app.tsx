@@ -9,13 +9,14 @@ import '../styles/globals.css'
 import Router from 'next/router'
 import NProgress from 'nprogress'
 
-import { Provider } from 'react-redux'
+import { useEffect } from 'react'
 import { AppContext, AppProps } from 'next/app'
+import { ConnectedRouter } from 'connected-next-router'
 import { AppInitialProps } from 'next/dist/next-server/lib/utils'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 
 import { builder } from '../services/'
-import { store } from '../redux/store'
+import { wrapper } from '../redux/store'
 // ---
 
 // ---
@@ -42,12 +43,13 @@ const client = new ApolloClient({
 // ---
 
 function MyApp({ Component, pageProps, currentUser }: IProps) {
-  console.log(currentUser)
+  //
+
   return (
     <ApolloProvider client={client}>
-      <Provider store={store}>
+      <ConnectedRouter>
         <Component currentUser={currentUser} {...pageProps} />
-      </Provider>
+      </ConnectedRouter>
     </ApolloProvider>
   )
 }
@@ -73,4 +75,4 @@ MyApp.getInitialProps = async ({
   return { pageProps, ...data }
 }
 
-export default MyApp
+export default wrapper.withRedux(MyApp)

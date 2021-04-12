@@ -1,1 +1,1 @@
-console.log('test cases')
+export const sdfdsf = 'sdfsdf'

@@ -12,6 +12,7 @@ interface IPassingProps {
   value?: string
   placeHolder?: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  type: string
 }
 
 // ---
@@ -21,7 +22,8 @@ export const FormRow: FC<IPassingProps> = ({
   name,
   value,
   placeHolder,
-  onChange
+  onChange,
+  type
 }) => {
   return (
     <>
@@ -35,7 +37,9 @@ export const FormRow: FC<IPassingProps> = ({
         aria-describedby={`${label}Help`}
         placeholder={placeHolder}
         onChange={onChange}
-        type="text"
+        type={type}
+        min={type == 'password' ? 4 : null}
+        max={type == 'password' ? 20 : null}
         className="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
       />
     </>

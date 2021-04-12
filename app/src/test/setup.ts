@@ -1,1 +1,1 @@
-console.log('test steup')
+export const fdfghgshger = 'fsdf'

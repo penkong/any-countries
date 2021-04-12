@@ -1,1 +1,1 @@
-console.log('custom comps')
+export const dsfsd = 'sdfsdf'
