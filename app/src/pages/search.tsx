@@ -3,6 +3,7 @@
  */
 
 import { GetServerSideProps, NextPage } from 'next'
+import { useQuery, gql } from '@apollo/client'
 
 // ---
 

@@ -2,13 +2,25 @@
  ** Description :
  */
 
+import axios from 'axios'
+import getConfig from 'next/config'
+
+import { useRouter } from 'next/router'
 import React, { ChangeEvent, useState, FormEvent } from 'react'
+
 import { IAuthHOCProps, IAuthProps } from './AuthHoc.interface'
 
 // ---
 
+// Only holds serverRuntimeConfig and publicRuntimeConfig
+const {
+  publicRuntimeConfig: { apiRoute }
+} = getConfig()
+
 export const AuthHoc: React.FC<IAuthHOCProps> = ({ children, route }) => {
   //
+
+  const router = useRouter()
 
   const [formState, setFormState] = useState<IAuthProps | null>(null)
 
@@ -20,10 +32,17 @@ export const AuthHoc: React.FC<IAuthHOCProps> = ({ children, route }) => {
     })
   }
 
-  const onAuthSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onAuthSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(route)
     console.log(formState)
+    try {
+      const res = await axios.post(`${apiRoute}/${route}`, formState)
+      console.log(res.data[0])
+      if (res.data[0].token.length > 0) router.push('/search')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return children({
