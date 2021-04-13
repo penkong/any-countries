@@ -13,7 +13,7 @@ export const SearchComp: FC<IPassingProps> = ({ countries }) => {
   }
 
   return (
-    <div className="m-auto max-w-lg rounded overflow-hidden">
+    <div className="m-auto mt-0 max-w-lg rounded overflow-hidden">
       <p className="p-4">Countries</p>
       <div className="border-b-2 m-0"></div>
       <p className="p-4 pb-1">Select Country: </p>

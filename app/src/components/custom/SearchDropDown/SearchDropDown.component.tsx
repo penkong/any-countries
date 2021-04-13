@@ -1,3 +1,4 @@
+import './SearchDropDown.module.css'
 import { useDispatch } from 'react-redux'
 import { FC, useEffect, useRef, ChangeEvent } from 'react'
 
@@ -40,23 +41,24 @@ export const SearchDropDown: FC<IPasssingProps> = ({
   }, [options])
 
   return (
-    <div className="relative">
+    <div className="absolute">
       <span className="p-1">
-        <div className="relative">
+        <div className="min-w-max">
           <input
             id="search-bar"
             type="text"
             placeholder="Search"
+            autoComplete="off"
             ref={inputRef}
             onChange={onInputChange}
-            className="w-full pl-3 pr-10 py-2 border-2 border-gray-200 rounded-xl hover:border-gray-300 focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full min-w-max pl-3 pr-10 py-2 border-2 border-gray-200 rounded-xl hover:border-gray-300 focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
         <br />
       </span>
       <ul
         id="results"
-        className="list-reset mt-2 list-group overflow-y-scroll max-h-72 max-w-full"
+        className="z-10 specific -mt-5 rounded-md bg-gray-100 relative inline-flex list-reset mt-0 list-group overflow-y-scroll max-h-72 max-w-full"
         ref={ulRef}
       >
         {options.map((option, index) => {

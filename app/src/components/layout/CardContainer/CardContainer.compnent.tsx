@@ -22,7 +22,7 @@ export const CardContainer = () => {
   return (
     <div id="container" className="m-auto">
       <div
-        className="flex flex-row flex-wrap sm:flex-row mx-auto rounded-md bg-gray-200 "
+        className="flex mt-20 flex-row flex-wrap sm:flex-row mx-auto rounded-md bg-gray-200 "
         style={{ minHeight: '70vh', maxWidth: '80vw' }}
       >
         {renderIt() || ''}
