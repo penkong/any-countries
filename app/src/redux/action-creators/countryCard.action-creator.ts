@@ -3,23 +3,19 @@
  */
 
 import { EnumCardCountryAction } from '@redux/action-enums'
-import { gql, useQuery } from '@apollo/client'
-import { data } from 'autoprefixer'
+import { IAddCardSuccessResponse } from '@redux/action-interfaces'
 
 // ---
 
-const GetAllCountries = gql`
-  query GetAllCountries {
-    getAllCountries {
-      name
-    }
-  }
-`
+export const AddCountryCardStartAction = (term: string) => ({
+  type: EnumCardCountryAction.ADD_CART_START,
+  payload: term
+})
 
-export const AddCountryCardStartAction = (term: string) => {
-  console.log(term)
+export const AddCountryCardSuccessAction = (info: IAddCardSuccessResponse) => {
+  console.log(info)
   return {
-    type: EnumCardCountryAction.ADD_CART_START,
-    payload: term
+    type: EnumCardCountryAction.ADD_CART_SUCCESS,
+    payload: info
   }
 }

@@ -51,7 +51,7 @@ export const SearchDropDown: FC<IPasssingProps> = ({
             autoComplete="off"
             ref={inputRef}
             onChange={onInputChange}
-            className="w-full min-w-max pl-3 pr-10 py-2 border-2 border-gray-200 rounded-xl hover:border-gray-300 focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-11 sm:w-full min-w-max pl-3 pr-10 py-2 border-2 border-gray-200 rounded-xl hover:border-gray-300 focus:outline-none focus:border-blue-500 transition-colors"
           />
         </div>
         <br />

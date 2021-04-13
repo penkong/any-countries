@@ -1,23 +1,30 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import { CardCustom } from '@components'
 import { useGetCountriesWithFlag } from '@hooks'
-import { lastAddSelector, numCardSelector } from '@redux'
-import { useEffect } from 'react'
+import { cardSelector, lastAddSelector } from '@redux'
+import { IAddCardSuccessResponse } from '@redux/action-interfaces'
 
 export const CardContainer = () => {
-  const numCard = useSelector(numCardSelector)
+  const term = useSelector(lastAddSelector)
+  const [name, cardError, cardLoading] = useGetCountriesWithFlag(term)
 
-  useEffect(() => {}, [numCard])
+  const cards = useSelector(cardSelector)
+  useEffect(() => {}, [term, Object.keys(cards)])
 
-  const renderIt = () => {
-    const sl = []
-    for (let i = 0; i < numCard; i++) {
-      sl.push(<CardCustom key={i} />)
-    }
-    return sl
-  }
+  const checker = (el: any, s: any) =>
+    (cards[el] as IAddCardSuccessResponse).name === name ? s : false
+
+  const renderIt = () =>
+    Object.keys(cards).map(el => (
+      <CardCustom
+        cardError={checker(el, cardError)}
+        cardLoading={checker(el, cardLoading)}
+        key={el}
+        country={cards[el]}
+      />
+    ))
 
   return (
     <div id="container" className="m-auto">
