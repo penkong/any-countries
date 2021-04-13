@@ -7,13 +7,17 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    - host: anycountries.dev
+    - host: anyfin.ir
       http:
         paths:
           - path: /api/?(.*)
             backend:
               serviceName: api-service
-              servicePort: 3000
+              servicePort: 5001
+          - path: /graphql/?(.*)
+            backend:
+              serviceName: api-service
+              servicePort: 5001
           - path: /?(.*)
             backend:
               serviceName: app-service

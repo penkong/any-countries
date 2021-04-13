@@ -79,6 +79,8 @@ in 2 seprated terminal in app and api
   npm run dev
 ```
 
+fix ormconfig.json path of entities and ...
+
 project bootstraped for development and for production need its own flow .
 
 Glad to hear from you !
