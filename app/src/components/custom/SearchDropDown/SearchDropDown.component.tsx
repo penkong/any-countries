@@ -1,13 +1,6 @@
 import './SearchDropDown.module.css'
 import { useDispatch } from 'react-redux'
-import {
-  FC,
-  useEffect,
-  useRef,
-  ChangeEvent,
-  useLayoutEffect,
-  useCallback
-} from 'react'
+import { FC, useEffect, useRef, ChangeEvent, useCallback } from 'react'
 
 import { AddCountryCardStartAction } from '@redux/action-creators'
 
