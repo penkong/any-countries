@@ -10,6 +10,7 @@ export const resolvers: IResolvers = {
   Query: {
     getAllCountries: (_, __, { dataSources }) => {
       // console.log(req.session)
+      // security things if we want to handle for future .
       return dataSources.countryAPI.getAll()
     },
 
@@ -19,7 +20,7 @@ export const resolvers: IResolvers = {
   },
   Currency: {
     changeRateToSEK: ({ code }, _, { dataSources }) => {
-      console.log(code)
+      // console.log(code) , code is country abbriviate money
       return dataSources.changeRateAPI.getChangeRate(code)
     }
   }

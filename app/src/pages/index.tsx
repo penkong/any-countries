@@ -21,8 +21,6 @@ interface AppProps extends IPassingProps, GetServerSideProps {}
 const Landing: NextPage<AppProps, IPassingProps> = () => {
   //
 
-  useCheckTokenExist()
-
   const renderLogin = (props: IChildrenAuthProps) => <AuthPage {...props} />
 
   return <AuthHoc route="login">{renderLogin}</AuthHoc>

@@ -10,7 +10,7 @@ const GetAllCountries = gql`
 `
 
 export const useGetAllCountriesCustom = () => {
-  const { data, error, loading } = useQuery(GetAllCountries)
+  const { data, error, loading } = useQuery(GetAllCountries, { ssr: false })
   const [options, setOptions] = useState<string[]>([])
 
   useEffect(() => {

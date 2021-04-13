@@ -25,12 +25,12 @@ export const cardReducer = produce(
         if (state.cards[action.payload]) return
         state.cards[action.payload] = {}
         state.num++
-        console.log(action.payload)
         state.lastAdd = action.payload
         return
 
       case EnumCardCountryAction.ADD_CART_SUCCESS:
         state.cards[state.lastAdd] = action.payload
+        // localStorage.setItem('cards', JSON.stringify(state.cards))
         return
 
       case EnumCardCountryAction.ADD_CART_FAILURE:

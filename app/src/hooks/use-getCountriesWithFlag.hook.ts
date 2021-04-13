@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { gql, useQuery } from '@apollo/client'
 
-import { IAddCardSuccessResponse } from '@redux/action-interfaces'
 import { useDispatch } from 'react-redux'
 import { AddCountryCardSuccessAction } from '@redux/action-creators'
 
@@ -26,7 +25,8 @@ export const useGetCountriesWithFlag = (term: string) => {
   const { data, error, loading } = useQuery(GetCountry, {
     variables: {
       term
-    }
+    },
+    ssr: false
   })
 
   let name: string

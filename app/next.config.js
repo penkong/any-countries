@@ -10,5 +10,9 @@ module.exports = {
   serverRuntimeConfig: {},
   publicRuntimeConfig: {
     apiRoute: process.env.NEXT_PUBLIC_ROUTE // Pass through env variables
+  },
+  images: {
+    loader: 'imgix',
+    path: 'https://restcountries.eu/data/swe.svg'
   }
 }

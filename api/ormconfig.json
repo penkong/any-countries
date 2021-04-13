@@ -4,8 +4,6 @@
   "port": 5432,
   "username": "root",
   "password": "secret",
-  "logging": true,
-  "synchronize": true,
   "database": "anycountries",
   "entities": ["./src/data-layer/models/*.ts"],
   "migrations": ["./src/data-layer/migrations/*.ts"]

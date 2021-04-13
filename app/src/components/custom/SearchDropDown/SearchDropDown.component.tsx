@@ -1,6 +1,13 @@
 import './SearchDropDown.module.css'
 import { useDispatch } from 'react-redux'
-import { FC, useEffect, useRef, ChangeEvent } from 'react'
+import {
+  FC,
+  useEffect,
+  useRef,
+  ChangeEvent,
+  useLayoutEffect,
+  useCallback
+} from 'react'
 
 import { AddCountryCardStartAction } from '@redux/action-creators'
 
@@ -19,25 +26,27 @@ export const SearchDropDown: FC<IPasssingProps> = ({
 }) => {
   const dispatch = useDispatch()
 
-  const ulRef = useRef(null)
-  const inputRef = useRef(null)
+  const ulRef = useRef<HTMLUListElement | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  const execAnime = useCallback(() => {
+    inputRef.current.addEventListener('click', (event: any) => {
+      event.stopPropagation()
+
+      ulRef.current.style.display = 'block'
+      ulRef.current.style.display = 'flex-row'
+
+      onInputChange(event)
+    })
+    if (document) {
+      document.addEventListener('click', event => {
+        ulRef.current.style.display = 'none'
+      })
+    }
+  }, [])
 
   useEffect(() => {
-    inputRef.current.addEventListener(
-      'click',
-      (event: ChangeEvent<HTMLInputElement>) => {
-        event.stopPropagation()
-
-        ulRef.current.style.display = 'block'
-        ulRef.current.style.display = 'flex-row'
-
-        onInputChange(event)
-      }
-    )
-
-    document.addEventListener('click', event => {
-      if (ulRef) ulRef.current.style.display = 'none'
-    })
+    execAnime()
   }, [options])
 
   return (

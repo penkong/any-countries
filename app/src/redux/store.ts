@@ -4,18 +4,22 @@
 
 import thunk from 'redux-thunk'
 import Router from 'next/router'
+
 import { createLogger } from 'redux-logger'
-// import { persistStore } from 'redux-persist'
 import { createStore, applyMiddleware } from 'redux'
 import { HYDRATE, createWrapper } from 'next-redux-wrapper'
+
 import {
   createRouterMiddleware,
   initialRouterState
 } from 'connected-next-router'
 
-
-import { rootReducer } from './reducer'
+import { rootReducer, RootState } from './reducer'
 import { someMiddleware } from './middleware'
+
+import { persistStore, persistReducer } from 'redux-persist'
+
+const storage = require('redux-persist/lib/storage').default
 
 // ---
 
@@ -57,6 +61,32 @@ export const initStore = context => {
   return createStore(reducer, initialState, applyMiddleware(...middlewares))
 }
 
-export const wrapper = createWrapper(initStore)
+export const makeStore = () => {
+  const isServer = typeof window === 'undefined'
+
+  if (isServer) {
+    return initStore(reducer)
+  } else {
+    const persistConfig = {
+      key: 'any-country',
+      whitelist: ['auth', 'card'], // make sure it does not clash with server keys
+      storage
+    }
+
+    // const persistedReducer = persistReducer(persistConfig, reducer)
+    const persistedReducer = persistReducer<any, any>(
+      persistConfig,
+      rootReducer
+    )
+    const store = initStore(persistedReducer)
+
+    // @ts-ignore
+    store.__persistor = persistStore(store) // Nasty hack
+
+    return store
+  }
+}
+
+export const wrapper = createWrapper(makeStore)
 
 export type RootStoreType = typeof initStore

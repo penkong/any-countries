@@ -12,10 +12,7 @@ export const AddCountryCardStartAction = (term: string) => ({
   payload: term
 })
 
-export const AddCountryCardSuccessAction = (info: IAddCardSuccessResponse) => {
-  console.log(info)
-  return {
-    type: EnumCardCountryAction.ADD_CART_SUCCESS,
-    payload: info
-  }
-}
+export const AddCountryCardSuccessAction = (info: IAddCardSuccessResponse) => ({
+  type: EnumCardCountryAction.ADD_CART_SUCCESS,
+  payload: info
+})

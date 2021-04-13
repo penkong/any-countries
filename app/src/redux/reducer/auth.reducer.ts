@@ -42,6 +42,12 @@ export const authReducer = produce(
         state.error = ''
         state.message = ''
         state.loading = false
+        if (
+          !localStorage.getItem('user') ||
+          localStorage.getItem('user') === 'null'
+        ) {
+          localStorage.setItem('user', JSON.stringify(action.payload))
+        }
         return
 
       case EnumAuthAction.REGISTER_FAILURE:

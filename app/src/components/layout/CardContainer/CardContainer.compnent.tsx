@@ -1,16 +1,16 @@
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 
 import { CardCustom } from '@components'
 import { useGetCountriesWithFlag } from '@hooks'
 import { cardSelector, lastAddSelector } from '@redux'
 import { IAddCardSuccessResponse } from '@redux/action-interfaces'
+import { useTypedSelector } from '../../../hooks/'
 
 export const CardContainer = () => {
-  const term = useSelector(lastAddSelector)
+  const term = useTypedSelector(lastAddSelector)
   const [name, cardError, cardLoading] = useGetCountriesWithFlag(term)
 
-  const cards = useSelector(cardSelector)
+  const cards = useTypedSelector(cardSelector)
   useEffect(() => {}, [term, Object.keys(cards)])
 
   const checker = (el: any, s: any) =>

@@ -1,1 +1,1 @@
-console.log('mock placess')
+export const mockPlease = 'mockPlease'

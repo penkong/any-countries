@@ -2,13 +2,12 @@
  ** Description :
  */
 
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import Router from 'next/router'
+import { useEffect } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 
+import { useGetAllCountriesCustom } from '@hooks'
 import { SearchComp, CardContainer } from '@components'
-import { cardSelector, lastAddSelector } from '@redux/selector'
-import { useGetAllCountriesCustom, useGetCountriesWithFlag } from '@hooks'
 
 // ---
 
@@ -22,9 +21,14 @@ interface IAppProps extends IPassingProps, GetServerSideProps {}
 const SearchPage: NextPage<IAppProps, IPassingProps> = () => {
   const [options, error, loading] = useGetAllCountriesCustom()
 
-  const cards = useSelector(cardSelector)
+  useEffect(() => {
+    if (!localStorage.getItem('token_c')) {
+      Router.push('/')
+    }
+  }, [])
 
-  if (loading || error) return <div>Loading or Error</div>
+  if (loading) return <div>Loading</div>
+  if (error) return <div>error</div>
 
   return (
     <>
