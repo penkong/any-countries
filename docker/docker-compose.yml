@@ -1,1 +1,36 @@
-# 
+#version: "3"
+services:
+  postgres:
+    image: "postgres"
+  nginx:
+    restart: always
+    depends_on:
+      - api
+      - app
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "3050:80"
+  app:
+    build:
+      dockerfile: Dockerfile
+      context: ./app
+    volumes:
+      - /app/node_modules
+      - ./app:/app
+  api:
+    depends_on:
+      - postgres
+    build:
+      dockerfile: Dockerfile
+      context: ./api
+    volumes:
+      - /app/node_modules
+      - ./api:/app
+    environment:
+      - PGUSER=root
+      - PGHOST=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=secret
+      - PGPORT=5432
