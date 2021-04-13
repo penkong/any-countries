@@ -8,7 +8,8 @@ import { ICardCountryStateModel } from '@redux/store.interface'
 
 const initialState: ICardCountryStateModel = {
   num: 0,
-  cards: {}
+  cards: {},
+  lastAdd: ''
   // ...
 }
 
@@ -21,11 +22,9 @@ export const cardReducer = produce(
   ) => {
     switch (action.type) {
       case EnumCardCountryAction.ADD_CART_START:
-        if (state.num - Object.keys(state.cards).length >= 1) return
-        else {
-          state.num++
-          state.cards[action.payload] = {}
-        }
+        if (state.cards[action.payload]) return
+        state.cards[action.payload] = {}
+        state.num++
         return
 
       case EnumCardCountryAction.ADD_CART_SUCCESS:

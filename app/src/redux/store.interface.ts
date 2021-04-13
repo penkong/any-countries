@@ -33,8 +33,9 @@ export interface IAuthStateModel {
 
 export interface ICardCountryStateModel {
   num: number // number of cards in store
+  lastAdd: string
   cards: {
-    [key: string]: IAddCardSuccessResponse | {}
+    [key: string]: (IAddCardSuccessResponse & { deleted: boolean }) | {}
   }
   // more will come who knows?
 }

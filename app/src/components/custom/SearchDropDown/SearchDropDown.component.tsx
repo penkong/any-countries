@@ -35,7 +35,7 @@ export const SearchDropDown: FC<IPasssingProps> = ({
     )
 
     document.addEventListener('click', event => {
-      ulRef.current.style.display = 'none'
+      if (ulRef) ulRef.current.style.display = 'none'
     })
   }, [options])
 

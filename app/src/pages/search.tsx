@@ -2,14 +2,13 @@
  ** Description :
  */
 
-import { gql, useQuery } from '@apollo/client'
-import { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { GetServerSideProps, NextPage } from 'next'
 
-import { SearchComp } from '@components'
-import { cardSelector } from '@redux/selector'
-import { useGetAllCountriesCustom } from '@hooks'
+import { SearchComp, CardContainer } from '@components'
+import { cardSelector, lastAddSelector } from '@redux/selector'
+import { useGetAllCountriesCustom, useGetCountriesWithFlag } from '@hooks'
 
 // ---
 
@@ -22,14 +21,17 @@ interface IAppProps extends IPassingProps, GetServerSideProps {}
 
 const SearchPage: NextPage<IAppProps, IPassingProps> = () => {
   const [options, error, loading] = useGetAllCountriesCustom()
+
   const cards = useSelector(cardSelector)
-  const [] = useGetCountriesWithFlag(cards.cards)
 
   if (loading || error) return <div>Loading or Error</div>
 
   return (
     <>
       <SearchComp countries={options as string[]} />
+      <div className="object-center">
+        <CardContainer />
+      </div>
     </>
   )
 }

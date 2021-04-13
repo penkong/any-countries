@@ -12,27 +12,27 @@ const GetCountry = gql`
       currencies {
         code
         name
-        symbot
+        symbol
       }
     }
   }
 `
 
-export const useGetCountriesWithFlag = (cards: {
-  [key: string]: IAddCardSuccessResponse | {}
-}) => {
-  const { data, error, loading } = useQuery(GetAllCountries)
-  const [options, setOptions] = useState<string[]>([])
+export const useGetCountriesWithFlag = (term: string) => {
+  const { data, error, loading } = useQuery(GetCountry, {
+    variables: {
+      term
+    }
+  })
+
+  const [options, setOptions] = useState<any>(null)
 
   useEffect(() => {
+    console.log(term)
     if (data) {
-      const container: string[] = []
-      for (let el of data.getAllCountries) {
-        container.push((Object.values(el)[1] as string).toLowerCase())
-      }
-      setOptions(container)
+      console.log(data)
     }
-  }, [data])
+  }, [data, loading])
 
   return [options, error, loading]
 }
