@@ -17,7 +17,7 @@ migrateUser:
 
 # step 5 - migrate up add creation for postgres - typeorm sync disabled
 migrateupUser:
-	cd api && npm run migrateup
+	npm run migrateup
 
 # if you need
 removedb: 
