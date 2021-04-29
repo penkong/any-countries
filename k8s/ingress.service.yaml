@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+    - host: anyfin.ir
+      http:
+        paths:
+          - path: /api/?(.*)
+            backend:
+              serviceName: api-service
+              servicePort: 5001
+          - path: /graphql/?(.*)
+            backend:
+              serviceName: api-service
+              servicePort: 5001
+          - path: /?(.*)
+            backend:
+              serviceName: app-service
+              servicePort: 3000

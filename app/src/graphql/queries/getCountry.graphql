@@ -1,0 +1,12 @@
+query GetCountry($term: String!) {
+  getCountry(term: $term) {
+    name
+    population
+    flag
+    currencies {
+      code
+      name
+      symbot
+    }
+  }
+}
